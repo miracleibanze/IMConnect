@@ -4,11 +4,8 @@ import { navbarIcons } from "./constants";
 import Button from "./design/Button";
 import { useEffect } from "react";
 
-const Navbar = ({ username, isLogged, imagePreview }) => {
+const Navbar = ({ isLogged, userData }) => {
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log(username);
-  });
   return (
     <div className="fixed top-0 right-0 left-0 bg-zinc-50 py-2 px-4 z-[100] flex items-center gap-4">
       <img
@@ -38,10 +35,10 @@ const Navbar = ({ username, isLogged, imagePreview }) => {
               </div>
             ))}
 
-            <p className="md:w-max md:flex hidden">{username}</p>
-            <div className="h-10 aspect-square rounded-md bg-zinc-200 flex items-center justify-center">
+            <p className="md:w-max md:flex hidden">{userData.username}</p>
+            <div className="h-10 aspect-square rounded-md flex items-center justify-center">
               <img
-                src={isLogged ? imagePreview : userSvg}
+                src={isLogged ? userData.img : userSvg}
                 className={` ${
                   !isLogged
                     ? "h-[1.2rem] w-[1.2rem]"

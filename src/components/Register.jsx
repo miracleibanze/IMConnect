@@ -136,6 +136,7 @@ const Register = () => {
               onChange={handleImageChange}
               type="file"
               name="img"
+              accept="image/*"
               className="w-0 h-0"
             />
           </label>

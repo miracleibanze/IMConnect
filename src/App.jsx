@@ -10,7 +10,7 @@ import Sidebar from "./components/Sidebar";
 import Hero from "./components/Hero";
 import Notification from "./components/Notification";
 import Register from "./components/Register";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useLayoutEffect, useState } from "react";
 import Sidebar2 from "./components/Sidebar2";
 
 export const AppContext = createContext();
@@ -26,19 +26,24 @@ function App() {
     email: "",
     location: "",
     gender: "",
+    img: null,
   });
+  var dummyUserObject = {
+    names: "",
+    username: "",
+    email: "",
+    location: "",
+    gender: "",
+    img: null,
+  };
   const [image, setImage] = useState(null);
   const [isLogged, setIsLogged] = useState(true);
-  const [imagePreview, setImagePreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState(image);
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const storedUser = JSON.parse(localStorage.getItem("userConnect"));
     if (storedUser) {
       setUserData(storedUser);
-    }
-    const savedImage = localStorage.getItem("uploadedImage");
-    if (savedImage) {
-      setImagePreview(savedImage);
     }
   }, []);
 
@@ -65,17 +70,12 @@ function App() {
     }
   };
 
-  const saveImageToLocalStorage = () => {
-    if (image) {
-      localStorage.setItem("uploadedImage", image);
-      userData.img = image;
-      alert("Image saved to localStorage!");
-    }
-  };
   const handleSubmit = () => {
     if (isLogin) {
       // Check if user exists in local storage
-      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const storedUser = JSON.parse(
+        localStorage.getItem("userConnect")
+      ).userData;
       if (
         storedUser &&
         (storedUser.email === userData.email ||
@@ -91,27 +91,44 @@ function App() {
       }
     } else {
       // Save user to local storage
-      localStorage.setItem("user", JSON.stringify(userData));
-      alert("Signup successful! You can now log in.");
       console.log(userData);
-      saveImageToLocalStorage();
+      if (image) {
+        localStorage.setItem("uploadedImage", image);
+        userData.img = image;
+        alert("Image saved to localStorage!");
+      }
+      localStorage.setItem("userConnect", JSON.stringify(userData));
       setIsLogged(true);
     }
   };
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+  useLayoutEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("userConnect"));
     if (storedUser) {
       setIsLogged(true);
+      dummyUserObject.names = storedUser.names;
+      dummyUserObject.username = storedUser.username;
+      dummyUserObject.email = storedUser.email;
+      dummyUserObject.password = storedUser.password;
+      dummyUserObject.location = storedUser.location;
+      dummyUserObject.gender = storedUser.gender;
+      dummyUserObject.img = imagePreview;
+
+      const savedImage = localStorage.getItem("uploadedImage");
+      dummyUserObject.img = savedImage;
+      setUserData(dummyUserObject);
+    } else {
+      setIsLogged(false);
     }
   }, []);
   return (
     <>
-      <Navbar
-        username={userData.username}
+      <Navbar userData={userData} isLogged={isLogged} />
+      <Sidebar
+        wrapped={wrapped}
+        setWrapped={setWrapped}
         isLogged={isLogged}
-        imagePreview={imagePreview}
+        setIsLogged={setIsLogged}
       />
-      <Sidebar wrapped={wrapped} setWrapped={setWrapped} />
       <div
         className={`relative max-w-full pt-16 bg-zinc-200 ${
           wrapped ? "sm:pl-[6rem] pl-[4rem]" : "max-sm:pl-[4rem] pl-[15rem]"
@@ -122,26 +139,17 @@ function App() {
             handleAddUser,
             handleSubmit,
             uploadImage,
-            userData,
+            dummyUserObject,
             wrapped,
             setWrapped,
             handleImageChange,
             isLogged,
             setIsLogin,
+            userData,
           }}
         >
           <Routes>
-            <Route
-              exact
-              path="/"
-              element={
-                isLogged ? (
-                  <Hero />
-                ) : (
-                  <Navigate replace to={"/register/sign_up"} />
-                )
-              }
-            />
+            <Route exact path="/" element={<Hero />} />
             <Route path="/profile/notification" element={<Notification />} />
             <Route path="/register/:logType" element={<Register />} />
           </Routes>

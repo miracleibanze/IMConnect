@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { menuSvg, xSvg } from "../assets";
 import {
   bottomSidebarLinks,
@@ -6,7 +6,12 @@ import {
   utilitySidebarLinks,
 } from "./constants";
 
-const Sidebar = ({ wrapped, setWrapped }) => {
+const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
+  useLayoutEffect(() => {
+    if (window.innerWidth < 768) {
+      setWrapped(true);
+    }
+  });
   return (
     <div
       className={`${
@@ -74,6 +79,11 @@ const Sidebar = ({ wrapped, setWrapped }) => {
                 item.id === 2 && "bg-zinc-50 rounded-md"
               }`}
               key={item.id}
+              onClick={() => {
+                if (item.logOut === true) {
+                  setIsLogged(false);
+                }
+              }}
             >
               <img
                 src={item.icon}

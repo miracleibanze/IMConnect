@@ -111,6 +111,7 @@ export const bottomSidebarLinks = [
     id: 1,
     name: "Log Out",
     icon: arrowRightOnRectanglSvg,
+    logOut: true,
   },
 ];
 

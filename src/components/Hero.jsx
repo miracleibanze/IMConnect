@@ -1,4 +1,4 @@
-import { memo, useContext } from "react";
+import { memo, useContext, useEffect } from "react";
 import { AppContext } from "../App";
 import {
   blackBoy,
@@ -13,6 +13,10 @@ import BlogCard from "./design/BlogCard";
 
 const Hero = () => {
   const { userData, wrapped, setWrapped } = useContext(AppContext);
+
+  useEffect(() => {
+    console.log(userData);
+  }, []);
   return (
     <div
       className={`relative w-full h-max grid md:grid-cols-3 ${
@@ -24,7 +28,9 @@ const Hero = () => {
         <div className="w-full flex items-center gap-2">
           <img
             src={userData.img || userSvg}
-            className="w-8 aspect-square border border-zinc-500 p-1"
+            className={`w-8 aspect-square border border-zinc-500 ${
+              !userData.img && "p-1"
+            }`}
           />
           <input
             type="text"
