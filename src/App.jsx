@@ -7,11 +7,23 @@ import {
 } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
-import Hero from "./components/Hero";
-import Notification from "./components/Notification";
-import Register from "./components/Register";
-import { createContext, useEffect, useLayoutEffect, useState } from "react";
+import {
+  createContext,
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import Sidebar2 from "./components/Sidebar2";
+import Loader from "./components/design/Loader";
+import PageNotFound from "./components/PageNotFound";
+
+const Hero = lazy(() => import("./components/Hero"));
+const Notification = lazy(() => import("./components/Notification"));
+const Register = lazy(() => import("./components/Register"));
+const Profile = lazy(() => import("./components/profile"));
 
 export const AppContext = createContext();
 
@@ -39,15 +51,26 @@ function App() {
   const [image, setImage] = useState(null);
   const [isLogged, setIsLogged] = useState(true);
   const [imagePreview, setImagePreview] = useState(image);
+  const [preview, setPreview] = useState(false);
 
+  useLayoutEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("userConnect"));
+    if (storedUser) {
+      setUserData(storedUser);
+    } else {
+      setIsLogged(false);
+    }
+  }, []);
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("userConnect"));
     if (storedUser) {
       setUserData(storedUser);
+    } else {
+      setIsLogged(false);
     }
   }, []);
 
-  const handleAddUser = (event) => {
+  const handleAddUser = useCallback((event) => {
     event.preventDefault();
     setUserData((prevFormData) => {
       return {
@@ -55,11 +78,11 @@ function App() {
         [event.target.name]: event.target.value,
       };
     });
-  };
+  }, []);
   const uploadImage = () => {
     console.log(userData.img);
   };
-  const handleImageChange = (e) => {
+  const handleImageChange = useCallback((e) => {
     const file = e.target.files[0]; // Get the selected file
     if (file) {
       const reader = new FileReader();
@@ -68,14 +91,13 @@ function App() {
         setImage(reader.result); // Set the image to Base64 string
       };
     }
-  };
+    setPreview(true);
+  }, []);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     if (isLogin) {
       // Check if user exists in local storage
-      const storedUser = JSON.parse(
-        localStorage.getItem("userConnect")
-      ).userData;
+      const storedUser = JSON.parse(localStorage.getItem("userConnect"));
       if (
         storedUser &&
         (storedUser.email === userData.email ||
@@ -100,39 +122,25 @@ function App() {
       localStorage.setItem("userConnect", JSON.stringify(userData));
       setIsLogged(true);
     }
-  };
-  useLayoutEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("userConnect"));
-    if (storedUser) {
-      setIsLogged(true);
-      dummyUserObject.names = storedUser.names;
-      dummyUserObject.username = storedUser.username;
-      dummyUserObject.email = storedUser.email;
-      dummyUserObject.password = storedUser.password;
-      dummyUserObject.location = storedUser.location;
-      dummyUserObject.gender = storedUser.gender;
-      dummyUserObject.img = imagePreview;
-
-      const savedImage = localStorage.getItem("uploadedImage");
-      dummyUserObject.img = savedImage;
-      setUserData(dummyUserObject);
-    } else {
-      setIsLogged(false);
-    }
   }, []);
   return (
     <>
       <Navbar userData={userData} isLogged={isLogged} />
-      <Sidebar
-        wrapped={wrapped}
-        setWrapped={setWrapped}
-        isLogged={isLogged}
-        setIsLogged={setIsLogged}
-      />
+      {location === "/" && (
+        <Sidebar
+          wrapped={wrapped}
+          setWrapped={setWrapped}
+          isLogged={isLogged}
+          setIsLogged={setIsLogged}
+        />
+      )}
+
       <div
-        className={`relative max-w-full pt-16 bg-zinc-200 ${
-          wrapped ? "sm:pl-[6rem] pl-[4rem]" : "max-sm:pl-[4rem] pl-[15rem]"
-        } lg:pr-[12rem]`}
+        className={`relative w-full pt-16  ${
+          wrapped
+            ? `${location === "/" ? "sm:pl-[6rem]pl-[4rem]" : ""} `
+            : `${location === "/" ? "max-sm:pl-[4rem] pl-[15rem]" : ""}`
+        } ${location === "/" && "bg-zinc-200 lg:pr-[12rem]"} min-h-screen`}
       >
         <AppContext.Provider
           value={{
@@ -146,13 +154,30 @@ function App() {
             isLogged,
             setIsLogin,
             userData,
+            image,
+            preview,
+            setPreview,
           }}
         >
-          <Routes>
-            <Route exact path="/" element={<Hero />} />
-            <Route path="/profile/notification" element={<Notification />} />
-            <Route path="/register/:logType" element={<Register />} />
-          </Routes>
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route
+                exact
+                path="/"
+                element={
+                  isLogged ? (
+                    <Hero />
+                  ) : (
+                    <Navigate replace to={"/register/auth"} />
+                  )
+                }
+              />
+              <Route path="/profile/:component" element={<Profile />} />
+              <Route path="/profile/notification" element={<Notification />} />
+              <Route path="/register/:logType" element={<Register />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
         </AppContext.Provider>
       </div>
       {location === "/" && (

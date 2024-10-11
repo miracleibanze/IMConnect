@@ -62,16 +62,19 @@
     }
   }
   .imgDiv {
-    background-size: cover;
-    background-position: center;
+    @apply bg-cover bg-center;
   }
   .imgDiv > img {
-    object-fit: cover;
-    object-position: center;
-    opacity: 1;
+    @apply object-cover object-center opacity-100;
     transition: opacity 200ms ease-in-out;
   }
   .no-animation {
     animation: none;
+  }
+  .flex-center {
+    @apply flex items-center gap-2;
+  }
+  .flex-between {
+    @apply flex-center justify-between;
   }
 }

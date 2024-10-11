@@ -5,13 +5,15 @@ import {
   homeSidebarLinks,
   utilitySidebarLinks,
 } from "./constants";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
+  const navigate = useNavigate();
   useLayoutEffect(() => {
     if (window.innerWidth < 768) {
       setWrapped(true);
     }
-  });
+  }, []);
   return (
     <div
       className={`${
@@ -47,6 +49,7 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
                 item.id === 2 && !wrapped && "bg-zinc-50 rounded-md"
               }`}
               key={item.id}
+              onClick={() => navigate(`/${item.link}`)}
             >
               <img
                 src={item.icon}

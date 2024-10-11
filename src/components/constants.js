@@ -11,9 +11,13 @@ import {
   bellSvg,
   blackBoy,
   blackBoySmall,
+  burningCity,
+  burningSitySmall,
   commentsSvg,
   deepForest,
   deepForestSmall,
+  eclipse,
+  eclipseSmall,
   forest,
   forestSmall,
   gearSvg,
@@ -76,16 +80,19 @@ export const homeSidebarLinks = [
     id: 0,
     name: "Profile",
     icon: userSvg,
+    link: "profile/feed",
   },
   {
     id: 1,
     name: "Explore",
     icon: searchSvg,
+    link: "explore",
   },
   {
     id: 2,
     name: "Dark mode",
     icon: moonSvg,
+    link: "profile",
   },
 ];
 export const utilitySidebarLinks = [
@@ -192,7 +199,7 @@ export const upcomingEvents = [
   },
 ];
 
-export const heroPosts = [
+export const Posts = [
   {
     id: 0,
     name: "ROBERT Hanold",
@@ -301,6 +308,32 @@ export const heroPosts = [
       },
     ],
     person: person16,
+    time: "Tuesday 22 August, 8h00'",
+    likes: 258,
+    comments: 11,
+    shares: 3,
+  },
+  {
+    id: 5,
+    name: "Kety Selena",
+    description:
+      "The Impact of Climate Change: How Nature is Responding: In this blog, I discuss the effects of climate change on our planet and share my thoughts on how we can work together to protect our environment.",
+    images: [
+      {
+        img: burningCity,
+        imgBg: burningSitySmall,
+      },
+      {
+        img: eclipse,
+        imgBg: eclipseSmall,
+      },
+      {
+        img: machineCity,
+        imgBg: machineCitySmall,
+      },
+    ],
+    person: person15,
+    feeling: "Sad",
     time: "Tuesday 22 August, 8h00'",
     likes: 258,
     comments: 11,
@@ -436,5 +469,28 @@ export const sidebar2content = [
         name: "Ava Lee",
       },
     ],
+  },
+];
+
+export const profilePages = [
+  {
+    id: 0,
+    name: "Posts",
+  },
+  {
+    id: 1,
+    name: "Profile",
+  },
+  {
+    id: 2,
+    name: "Gallery",
+  },
+  {
+    id: 3,
+    name: "Clips",
+  },
+  {
+    id: 4,
+    name: "Contact",
   },
 ];

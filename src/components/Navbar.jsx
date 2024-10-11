@@ -13,6 +13,7 @@ const Navbar = ({ isLogged, userData }) => {
         alt="logo"
         width={673}
         height={139}
+        onClick={() => navigate("/")}
         className="h-11 max-w-32"
       />
       <div className="flex items-center md:justify-between justify-end w-full">
@@ -20,6 +21,7 @@ const Navbar = ({ isLogged, userData }) => {
           <img src={searchSvg} alt="search" className="h-3 w-3 text-zinc-800" />
           <input
             type="text"
+            placeholder="Search for User or Content."
             className="flex-1 md:flex hidden bg-transparent outline-none"
           />
         </div>

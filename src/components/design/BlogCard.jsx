@@ -16,7 +16,7 @@ const BlogCard = ({ blog }) => {
           />
           <span>
             <p className="caption font-semibold">
-              {blog.name} is feeling happy
+              {blog.name} is feeling {blog.feeling || "happy"}
             </p>
             <p className="text-[12px] leading-3">{blog.time}</p>
           </span>

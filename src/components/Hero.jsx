@@ -1,59 +1,22 @@
 import { memo, useContext, useEffect } from "react";
 import { AppContext } from "../App";
-import {
-  blackBoy,
-  blackBoySmall,
-  sittingRoom,
-  sittingRoomSmall,
-  userSvg,
-} from "../assets";
-import { birthDays, heroPosts, postIcons, upcomingEvents } from "./constants";
+import { sittingRoom, sittingRoomSmall, userSvg } from "../assets";
+import { birthDays, Posts, upcomingEvents } from "./constants";
 import Button from "./design/Button";
 import BlogCard from "./design/BlogCard";
+import WhatInYourMind from "./design/WhatInYourMind";
 
 const Hero = () => {
   const { userData, wrapped, setWrapped } = useContext(AppContext);
 
-  useEffect(() => {
-    console.log(userData);
-  }, []);
   return (
     <div
       className={`relative w-full h-max grid md:grid-cols-3 ${
         !wrapped ? "grid-cols-2" : "grid-cols-3"
-      } max-sm:grid-cols-2 gap-2 p-2 bg-zinc-50`}
+      } max-sm:grid-cols-2 gap-3 p-3 bg-zinc-50`}
       onClick={() => !wrapped && window.innerWidth < 768 && setWrapped(true)}
     >
-      <div className="w-full col-span-2 bg-zinc-200 p-2 rounded-md">
-        <div className="w-full flex items-center gap-2">
-          <img
-            src={userData.img || userSvg}
-            className={`w-8 aspect-square border border-zinc-500 ${
-              !userData.img && "p-1"
-            }`}
-          />
-          <input
-            type="text"
-            name="post"
-            placeholder="What's on your mind?"
-            className="outline-none px-4 py-1 border border-zinc-500 rounded-md flex-1"
-          />
-        </div>
-        <div className="flex items-center justify-between gap-1 pt-2 relative">
-          <div className="flex items-center gap-1">
-            {postIcons.map((item) => (
-              <div className="w-4 aspect-square" key={item.id}>
-                <img
-                  src={item.icon}
-                  alt={item.name}
-                  className="w-5 aspect-square object-center object-cover"
-                />
-              </div>
-            ))}
-          </div>
-          <Button blue>Post</Button>
-        </div>
-      </div>
+      <WhatInYourMind />
       <div
         className={`w-full p-2 rounded-md row-span-3 bg-zinc-200  ${
           wrapped ? "col-span-1" : "max-md:col-span-2"
@@ -83,7 +46,7 @@ const Hero = () => {
         ))}
       </div>
       <div className="w-full col-span-2 p-2 rounded-md row-span-3 bg-zinc-200">
-        <BlogCard blog={heroPosts[0]} />
+        <BlogCard blog={Posts[0]} />
       </div>
       <div
         className={`w-full p-2 rounded-md row-span-3 bg-zinc-200  ${
@@ -116,10 +79,10 @@ const Hero = () => {
         ))}
       </div>
       <div className="w-full col-span-2 p-2 rounded-md row-span-3 bg-zinc-200">
-        <BlogCard blog={heroPosts[1]} />
+        <BlogCard blog={Posts[1]} />
       </div>
       <div
-        className={`w-full p-2 rounded-md row-span-4 flex flex-col justify-between gap-4 bg-zinc-200 ${
+        className={`w-full p-2 rounded-md row-span-5 flex flex-col justify-between gap-4 bg-zinc-200 ${
           wrapped ? "col-span-1" : "max-md:col-span-2"
         } max-sm:col-span-2`}
       >
@@ -136,7 +99,10 @@ const Hero = () => {
         </p>
       </div>
       <div className="w-full col-span-2 p-2 rounded-md row-span-3 bg-zinc-200">
-        <BlogCard blog={heroPosts[4]} />
+        <BlogCard blog={Posts[4]} />
+      </div>
+      <div className="col-span-2 flex place-content-end">
+        <Button blue>Discover more</Button>
       </div>
     </div>
   );

@@ -16,9 +16,8 @@ const Button = ({
     dark && "text-slate-100 bg-zinc-800 "
   } ${blue && "text-zinc-100 bg-blue-700"} ${
     border && "text-blue-700 border border-blue-700"
-  } ${red && "text-zinc-800 bg-pink-600"} ${
-    light && "text-zinc-800 bg-slate-100"
-  } ${rounded ? "rounded-full" : "rounded-md"}
+  } ${light && "text-zinc-800 bg-zinc-200"} ${
+    rounded ? "rounded-full" : "rounded-md"
   } ${className && ""} ${hFull ? "h-full" : "h-8"}`;
 
   const spanClasses = `relative z-10 flex gap-4 items-center`;

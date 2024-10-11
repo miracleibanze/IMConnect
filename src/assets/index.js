@@ -135,6 +135,11 @@ import menuSvg from "./svgs/menu.svg";
 import xSvg from "./svgs/x-lg.svg";
 
 import logo from "./logo.png";
+import editSvg from "./svgs/pen.svg";
+
+import loaderSvg from "./svgs/loader.svg";
+
+import arrowSvg from "./svgs/arrow-right.svg";
 
 export {
   archer,
@@ -271,4 +276,7 @@ export {
   artValleySmall,
   beachSmall,
   beachWaterSmal,
+  editSvg,
+  loaderSvg,
+  arrowSvg,
 };

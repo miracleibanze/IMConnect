@@ -1,5 +1,5 @@
 import { memo, useContext, useEffect, useState } from "react";
-import { artUnderwater, uploadCloud } from "../assets";
+import { artUnderwater, editSvg, uploadCloud } from "../assets";
 import Button from "./design/Button";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../App";
@@ -15,6 +15,9 @@ const Register = () => {
     handleImageChange,
     userData,
     setIsLogin,
+    image,
+    preview,
+    setPreview,
   } = useContext(AppContext);
   useEffect(() => {
     if (logType === "auth") {
@@ -23,6 +26,9 @@ const Register = () => {
       setIsLogin(false);
     }
   }, [location]);
+  useEffect(() => {
+    setPreview(false);
+  }, [registerPage]);
   return (
     <div
       className="fixed top-0 right-0 left-0 z-[100] bg-cover bottom-0 bg-center flex items-center justify-center"
@@ -120,16 +126,23 @@ const Register = () => {
           </label>
           {registerPage === 2 && <h4 className="h4">Profile picture</h4>}
           <label
-            className={`w-full ${
-              registerPage !== 2 && "hidden"
-            } aspect-[5/3] rounded-md bg-zinc-100 flex flex-col items-center relative `}
-            onClick={() => console.log(userData.img)}
+            className={`w-full ${registerPage !== 2 && "hidden"} ${
+              preview ? "bg-slate-800" : "bg-zinc-100"
+            } aspect-[5/3] rounded-md flex flex-col items-center relative `}
           >
-            <div className="flex flex-col items-center justify-center h-2/3">
+            <div
+              className={`flex flex-col items-center justify-center h-2/3 ${
+                preview && "hidden"
+              }`}
+            >
               <img src={uploadCloud} alt="Upload" className="w-6 h-6" />
               <span>Click to upload</span>
             </div>
-            <span className="text-zinc-500/50 h-1/2 flex items-center">
+            <span
+              className={`text-zinc-500/50 h-1/2 flex items-center ${
+                preview && "hidden"
+              }`}
+            >
               of .JPEG .GIF .JPG .TIFF .PNG and .WEBP
             </span>
             <input
@@ -137,8 +150,22 @@ const Register = () => {
               type="file"
               name="img"
               accept="image/*"
-              className="w-0 h-0"
+              className={`w-0 h-0 ${preview && "hidden"}`}
             />
+            <img
+              src={image}
+              alt="image"
+              className={`w-full ${
+                !preview && "hidden"
+              } aspect-[5/3] object-contain`}
+            />
+            {preview && (
+              <img
+                src={editSvg}
+                alt=""
+                className="absolute bottom-1 right-1 h-10 w-10"
+              />
+            )}
           </label>
           <div className="absolute bottom-10 w-full px-8 flex flex-col items-center">
             <div className="w-[10rem] h-1 rounded-full grid grid-cols-3 gap-1">
