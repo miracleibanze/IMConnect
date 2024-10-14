@@ -35,7 +35,7 @@ const Hero = () => {
               className="w-8 aspect-square p-[10px] bg-blue-600 rounded-md  object-center object-cover"
             />
             <div className="w-full">
-              <p className="caption font-semibold overflow-hidden h-5">
+              <p className="caption font-semibold overflow-hidden h-5 hover:underline cursor-pointer">
                 {item.name}
               </p>
               <p className="text-[12px] font-medium tracking-tight h-4 overflow-hidden text-zinc-800/90">
@@ -66,7 +66,7 @@ const Hero = () => {
                   <img src={person.image.img} className="w-full h-full" />
                 </div>
                 <div>
-                  <p className="caption font-semibold overflow-hidden leading-4">
+                  <p className="caption font-semibold overflow-hidden leading-4 hover:underline cursor-pointer">
                     {person.name}
                   </p>
                   <p className="caption overflow-hidden leading-4">

@@ -4,13 +4,12 @@ import Button from "./design/Button";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AppContext } from "../App";
 
-const Register = () => {
+const Register = ({ handleAddUser }) => {
   const { logType } = useParams();
   const navigate = useNavigate();
   const location = useLocation().pathname;
   const [registerPage, setRegisterPage] = useState(0);
   const {
-    handleAddUser,
     handleSubmit,
     handleImageChange,
     userData,
@@ -219,7 +218,6 @@ const Register = () => {
                     setRegisterPage(2);
                   } else {
                     handleSubmit();
-                    navigate("/");
                   }
                 }}
               >
@@ -288,12 +286,6 @@ const Register = () => {
             <Button blue onClick={handleSubmit}>
               Log in
             </Button>
-          </div>
-          <div
-            className="absolute top-0 right-0 text-blue-600 underline py-3 px-4 bg-neutral-300/30"
-            onClick={() => navigate("/")}
-          >
-            Skip
           </div>
         </div>
       )}

@@ -140,6 +140,9 @@ import editSvg from "./svgs/pen.svg";
 import loaderSvg from "./svgs/loader.svg";
 
 import arrowSvg from "./svgs/arrow-right.svg";
+import plusSvg from "./svgs/plus.svg";
+import checkSvg from "./svgs/check-badge.svg";
+import eyeSlashSvg from "./svgs/eye-slash.svg";
 
 export {
   archer,
@@ -279,4 +282,7 @@ export {
   editSvg,
   loaderSvg,
   arrowSvg,
+  plusSvg,
+  checkSvg,
+  eyeSlashSvg,
 };

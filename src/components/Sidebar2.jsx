@@ -15,7 +15,9 @@ const Sidebar2 = () => {
               >
                 <img src={element.image.img} className="h-full w-full" />
               </div>
-              <p className="caption font-medium">{element.name}</p>
+              <p className="caption font-medium hover:underline cursor-pointer">
+                {element.name}
+              </p>
             </div>
           ))}
         </div>

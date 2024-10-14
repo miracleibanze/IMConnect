@@ -1,6 +1,8 @@
 import { comment } from "postcss";
 import {
   alignCenterSvg,
+  archer,
+  archerSmall,
   arrowRightOnRectanglSvg,
   artUnderwater,
   artUnderwaterSmall,
@@ -8,9 +10,15 @@ import {
   beachSmall,
   beachWater,
   beachWaterSmal,
+  beackSunSet,
+  beackSunSetSmall,
   bellSvg,
   blackBoy,
   blackBoySmall,
+  boatValley,
+  boatValleySmall,
+  boxingMan,
+  boxingManSmall,
   burningCity,
   burningSitySmall,
   commentsSvg,
@@ -25,6 +33,8 @@ import {
   horizonSmall,
   hotjarSvg,
   imageSvg,
+  kunguFuMan,
+  kunguFuManSmall,
   machineCity,
   machineCitySmall,
   mapPinSvg,
@@ -32,6 +42,8 @@ import {
   musicNoteSvg,
   paperclipSvg,
   person1,
+  person13,
+  person13Small,
   person15,
   person15Small,
   person16,
@@ -80,7 +92,7 @@ export const homeSidebarLinks = [
     id: 0,
     name: "Profile",
     icon: userSvg,
-    link: "profile/feed",
+    link: "profile/Feeds",
   },
   {
     id: 1,
@@ -112,6 +124,7 @@ export const bottomSidebarLinks = [
   {
     id: 0,
     name: "Setting",
+    link: "/profile/edit/General",
     icon: gearSvg,
   },
   {
@@ -475,7 +488,7 @@ export const sidebar2content = [
 export const profilePages = [
   {
     id: 0,
-    name: "Posts",
+    name: "Feeds",
   },
   {
     id: 1,
@@ -492,5 +505,44 @@ export const profilePages = [
   {
     id: 4,
     name: "Contact",
+  },
+];
+
+export const gallery = [
+  {
+    img: person15,
+    imgBg: person15Small,
+  },
+  {
+    img: deepForest,
+    imgBg: deepForestSmall,
+  },
+  {
+    img: person18,
+    imgBg: person18Small,
+  },
+  {
+    img: person13,
+    imgBg: person13Small,
+  },
+  {
+    img: archer,
+    imgBg: archerSmall,
+  },
+  {
+    img: beackSunSet,
+    imgBg: beackSunSetSmall,
+  },
+  {
+    img: boatValley,
+    imgBg: boatValleySmall,
+  },
+  {
+    img: boxingMan,
+    imgBg: boxingManSmall,
+  },
+  {
+    img: kunguFuMan,
+    imgBg: kunguFuManSmall,
   },
 ];

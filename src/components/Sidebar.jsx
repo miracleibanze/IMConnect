@@ -47,7 +47,7 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
             <div
               className={`w-full py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
                 item.id === 2 && !wrapped && "bg-zinc-50 rounded-md"
-              }`}
+              } cursor-pointer`}
               key={item.id}
               onClick={() => navigate(`/${item.link}`)}
             >
@@ -62,7 +62,7 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
         <div className="h-1/3">
           {utilitySidebarLinks.map((item) => (
             <div
-              className={`w-full py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
+              className={`w-full py-2 cursor-pointer font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
                 item.id === 2 && "bg-zinc-50 rounded-md"
               }`}
               key={item.id}
@@ -78,13 +78,18 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
         <div className="h-1/4">
           {bottomSidebarLinks.map((item) => (
             <div
-              className={`w-full py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
+              className={`cursor-pointer w-full py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
                 item.id === 2 && "bg-zinc-50 rounded-md"
               }`}
               key={item.id}
               onClick={() => {
                 if (item.logOut === true) {
                   setIsLogged(false);
+                  localStorage.clear("userConnect");
+                  localStorage.clear("coverImage");
+                  localStorage.clear("profileImage");
+                } else {
+                  navigate(`${item.link}`);
                 }
               }}
             >

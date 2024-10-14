@@ -2,10 +2,21 @@ import { useNavigate } from "react-router-dom";
 import { logo, searchSvg, userSvg } from "../assets";
 import { navbarIcons } from "./constants";
 import Button from "./design/Button";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 const Navbar = ({ isLogged, userData }) => {
   const navigate = useNavigate();
+  const [username, setUsername] = useState(null);
+  const [userimage, setUserimage] = useState(null);
+
+  useLayoutEffect(() => {
+    const user = JSON.parse(localStorage.getItem("userConnect"));
+    const profile = localStorage.getItem("profileImage");
+    if (user) {
+      setUsername(user.username);
+      setUserimage(profile);
+    }
+  }, []);
   return (
     <div className="fixed top-0 right-0 left-0 bg-zinc-50 py-2 px-4 z-[100] flex items-center gap-4">
       <img
@@ -14,7 +25,7 @@ const Navbar = ({ isLogged, userData }) => {
         width={673}
         height={139}
         onClick={() => navigate("/")}
-        className="h-11 max-w-32"
+        className="h-11 max-w-32 cursor-pointer"
       />
       <div className="flex items-center md:justify-between justify-end w-full">
         <div className="max-w-[23rem] flex-1 mr-8 border border-zinc-900 rounded-md md:flex hidden items-center h-8 gap-2 px-2">
@@ -29,7 +40,7 @@ const Navbar = ({ isLogged, userData }) => {
           <div className="flex items-center gap-2">
             {navbarIcons.map((item) => (
               <div
-                className="h-10 aspect-square rounded-md bg-zinc-200 flex items-center justify-center"
+                className="h-10 aspect-square rounded-md bg-zinc-200 flex items-center justify-center cursor-pointer"
                 key={item.id}
                 onClick={() => navigate(`${item.link}`)}
               >
@@ -37,14 +48,22 @@ const Navbar = ({ isLogged, userData }) => {
               </div>
             ))}
 
-            <p className="md:w-max md:flex hidden">{userData.username}</p>
-            <div className="h-10 aspect-square rounded-md flex items-center justify-center">
+            <p
+              className="md:w-max md:flex hidden hover:bg-zinc-400/20 p-2 rounded-md cursor-pointer"
+              onClick={() => navigate("/profile/Feeds")}
+            >
+              {username}
+            </p>
+            <div
+              className="h-10 aspect-square rounded-md flex items-center justify-center cursor-pointer"
+              onClick={() => navigate("/profile/Feeds")}
+            >
               <img
-                src={isLogged ? userData.img : userSvg}
+                src={userimage ? userimage : userSvg}
                 className={` ${
-                  !isLogged
+                  !userimage
                     ? "h-[1.2rem] w-[1.2rem]"
-                    : "w-full h-full object-cover object-center"
+                    : "w-full h-full object-cover rounded-md object-center"
                 }`}
               />
             </div>

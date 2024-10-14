@@ -1,17 +1,23 @@
-import { useContext } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import { AppContext } from "../../App";
 import { postIcons } from "../constants";
 import Button from "./Button";
+import { userSvg } from "../../assets";
 
-const WhatInYourMind = () => {
-  const { userData } = useContext(AppContext);
+const WhatInYourMind = ({ className }) => {
+  const [userImage, setUserImage] = useState(null);
+  useLayoutEffect(() => {
+    setUserImage(localStorage.getItem("profileImage"));
+  }, []);
   return (
-    <div className="w-full col-span-2 bg-zinc-200 p-2 rounded-md">
+    <div
+      className={`w-full col-span-2 bg-zinc-200 p-2 rounded-md ${className}`}
+    >
       <div className="w-full flex items-center gap-2">
         <img
-          src={userData.img || userSvg}
-          className={`w-8 aspect-square border border-zinc-500 ${
-            !userData.img && "p-1"
+          src={userImage || userSvg}
+          className={`w-8 aspect-square border rounded-md object-cover object-center border-zinc-500 ${
+            !userImage && "p-1"
           }`}
         />
         <input
