@@ -29,6 +29,7 @@ import {
   forest,
   forestSmall,
   gearSvg,
+  HomeSvg,
   horizon,
   horizonSmall,
   hotjarSvg,
@@ -90,21 +91,21 @@ import {
 export const homeSidebarLinks = [
   {
     id: 0,
-    name: "Profile",
-    icon: userSvg,
-    link: "profile/Feeds",
+    name: "Home",
+    icon: HomeSvg,
+    link: "",
   },
   {
     id: 1,
     name: "Explore",
     icon: searchSvg,
-    link: "explore",
+    link: "posts/feeds",
   },
   {
     id: 2,
-    name: "Dark mode",
-    icon: moonSvg,
-    link: "profile",
+    name: "Profile",
+    icon: userSvg,
+    link: "profile/Feeds",
   },
 ];
 export const utilitySidebarLinks = [
@@ -254,6 +255,7 @@ export const Posts = [
       },
     ],
     person: person8,
+    feeling: "creating album",
     time: "Thursday 17 August, 14h00'",
     likes: 158,
     comments: 22,
@@ -287,15 +289,12 @@ export const Posts = [
       "In this post, I recount my experiences with outdoor therapy and how spending time in nature has helped me find peace and clarity in my life",
     images: [
       {
-        img: deepForest,
-        imgBg: deepForestSmall,
-      },
-      {
-        img: forest,
-        imgBg: forestSmall,
+        img: beackSunSet,
+        imgBg: beackSunSetSmall,
       },
     ],
-    person: person7,
+    person: person3,
+
     time: "Two minutes ago",
     likes: 208,
     comments: 29,
@@ -346,7 +345,7 @@ export const Posts = [
       },
     ],
     person: person15,
-    feeling: "Sad",
+    feeling: "feeling Sad",
     time: "Tuesday 22 August, 8h00'",
     likes: 258,
     comments: 11,

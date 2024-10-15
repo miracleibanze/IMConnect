@@ -41,14 +41,23 @@ const Feeds = () => {
         </Button>
       </div>
       <WhatInYourMind className="max-sm:col-span-3" />
-      <div className="col-span-2 h5 font-semibold">Feeds</div>
+      <div className="col-span-2 h5 font-semibold flex-between w-full">
+        <span>Feeds</span>
+        <button className="pr-4 outline-none ">
+          <img
+            src={arrowSvg}
+            className="w-6 h-6"
+            onClick={() => navigate("/posts/feeds")}
+          />
+        </button>
+      </div>
       <div className="md:col-span-2 col-span-3 flex flex-col gap-3 row-span-4">
         <div className="bg-zinc-200 p-3">
           <BlogCard blog={Posts[2]} />
         </div>
 
         <div className="bg-zinc-200 p-3">
-          <BlogCard blog={Posts[2]} />
+          <BlogCard blog={Posts[3]} />
         </div>
       </div>
       <div className="p-3 grid md:grid-cols-2 grid-cols-3 md:col-span-1 col-span-3 row-span-3 gap-2 bg-zinc-200">

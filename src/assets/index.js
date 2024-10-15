@@ -136,6 +136,7 @@ import xSvg from "./svgs/x-lg.svg";
 
 import logo from "./logo.png";
 import editSvg from "./svgs/pen.svg";
+import HomeSvg from "./svgs/home.svg";
 
 import loaderSvg from "./svgs/loader.svg";
 
@@ -285,4 +286,5 @@ export {
   plusSvg,
   checkSvg,
   eyeSlashSvg,
+  HomeSvg,
 };

@@ -5,15 +5,11 @@ import {
   homeSidebarLinks,
   utilitySidebarLinks,
 } from "./constants";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
+const Sidebar = ({ wrapped, setWrapped, setIsLogged }) => {
   const navigate = useNavigate();
-  useLayoutEffect(() => {
-    if (window.innerWidth < 768) {
-      setWrapped(true);
-    }
-  }, []);
+  const location = useLocation().pathname;
   return (
     <div
       className={`${
@@ -42,11 +38,11 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
         }}
       />
       <div className="h-full min-w-full max-w-full flex flex-col justify-between items-center">
-        <div>
+        <div className={`${wrapped ? "w-max" : "w-full"}`}>
           {homeSidebarLinks.map((item) => (
-            <div
-              className={`w-full py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
-                item.id === 2 && !wrapped && "bg-zinc-50 rounded-md"
+            <button
+              className={`w-full outline-none py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
+                location === `/${item.link}` && "bg-zinc-50 rounded-md"
               } cursor-pointer`}
               key={item.id}
               onClick={() => navigate(`/${item.link}`)}
@@ -56,13 +52,13 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
                 className={`${!wrapped ? "h-4" : "h-5 "} aspect-square`}
               />
               <p className={`${wrapped ? "hidden" : "flex"}`}>{item.name}</p>
-            </div>
+            </button>
           ))}
         </div>
-        <div className="h-1/3">
+        <div className={`${wrapped ? "w-max" : "w-full"} h-1/3`}>
           {utilitySidebarLinks.map((item) => (
-            <div
-              className={`w-full py-2 cursor-pointer font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
+            <button
+              className={`w-full outline-none border-none py-2 cursor-pointer font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
                 item.id === 2 && "bg-zinc-50 rounded-md"
               }`}
               key={item.id}
@@ -72,14 +68,14 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged, isLogged }) => {
                 className={`${!wrapped ? "h-4" : "h-5"} aspect-square`}
               />
               <p className={`${wrapped ? "hidden" : "flex"}`}>{item.name}</p>
-            </div>
+            </button>
           ))}
         </div>
-        <div className="h-1/4">
+        <div className={`${wrapped ? "w-max" : "w-full"} h-1/4`}>
           {bottomSidebarLinks.map((item) => (
             <div
-              className={`cursor-pointer w-full py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2 ${
-                item.id === 2 && "bg-zinc-50 rounded-md"
+              className={`cursor-pointer w-full py-2 font-semibold sm:px-4 hover:bg-slate-300/50 flex items-center gap-2  ${
+                location === `${item.link}` && "bg-zinc-50 rounded-md"
               }`}
               key={item.id}
               onClick={() => {

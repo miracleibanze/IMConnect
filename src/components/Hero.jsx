@@ -1,4 +1,4 @@
-import { memo, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "../App";
 import { sittingRoom, sittingRoomSmall, userSvg } from "../assets";
 import { birthDays, Posts, upcomingEvents } from "./constants";
@@ -14,7 +14,6 @@ const Hero = () => {
       className={`relative w-full h-max grid md:grid-cols-3 ${
         !wrapped ? "grid-cols-2" : "grid-cols-3"
       } max-sm:grid-cols-2 gap-3 p-3 bg-zinc-50`}
-      onClick={() => !wrapped && window.innerWidth < 768 && setWrapped(true)}
     >
       <WhatInYourMind />
       <div
@@ -108,4 +107,4 @@ const Hero = () => {
   );
 };
 
-export default memo(Hero);
+export default Hero;

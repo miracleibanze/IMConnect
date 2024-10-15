@@ -1,6 +1,6 @@
 import { memo, useEffect, useLayoutEffect, useState } from "react";
-import { checkSvg, editSvg, loaderSvg, uploadCloud } from "../../../assets";
-import Button from "../../design/Button";
+import { checkSvg, editSvg, loaderSvg, uploadCloud } from "../../assets";
+import Button from "../design/Button";
 import { useNavigate, useParams } from "react-router-dom";
 
 const AddToGallery = () => {
@@ -99,9 +99,10 @@ const AddToGallery = () => {
             </a>
           )}
           {(title === "cover" || title === "profile") && (
-            <a href="/profile/edit/General">
+            <a href="/profile/edit/personal_information">
               <Button
-                blue
+                blue={uploadStatus ? true : false}
+                light={!uploadStatus ? true : false}
                 onClick={() => {
                   setWaitResult(false);
                   setUploadStatus(false);

@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { AppContext } from "../../../App";
-import { arrowSvg, editSvg } from "../../../assets";
+import { AppContext } from "../../App";
+import { arrowSvg, editSvg } from "../../assets";
 import { Link } from "react-router-dom";
-import Button from "../../design/Button";
+import Button from "../design/Button";
 
 const PersonalInformation = () => {
   const { userData } = useContext(AppContext);

@@ -16,7 +16,7 @@ const BlogCard = ({ blog }) => {
           />
           <span>
             <p className="caption font-semibold">
-              {blog.name} is feeling {blog.feeling || "happy"}
+              {blog.name} is {blog.feeling || "feeling happy"}
             </p>
             <p className="text-[12px] leading-3">{blog.time}</p>
           </span>
@@ -33,11 +33,15 @@ const BlogCard = ({ blog }) => {
       <div className="flex justify-between w-full gap-2 mt-2">
         {blog.images.map((item, index) => (
           <div
-            className="w-full aspect-[4/3] rounded-md overflow-hidden imgDiv"
+            className="w-full aspect-[4/3] max-h-[20rem] rounded-md overflow-hidden imgDiv"
             style={{ backgroundImage: `url(${item.imgBg})` }}
             key={index}
           >
-            <img loading="lazy" src={item.img} className="w-full h-full" />
+            <img
+              loading="lazy"
+              src={item.img}
+              className=" w-full h-full"
+            />
           </div>
         ))}
       </div>

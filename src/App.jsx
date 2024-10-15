@@ -18,20 +18,20 @@ import {
 } from "react";
 import Sidebar2 from "./components/Sidebar2";
 import Loader from "./components/design/Loader";
+import { profilePages } from "./components/constants.js";
+import PostsFeeds from "./components/PostsFeeds.jsx";
 
 const Hero = lazy(() => import("./components/Hero"));
 const Notification = lazy(() => import("./components/Notification"));
 const Register = lazy(() => import("./components/Register"));
 const Profile = lazy(() => import("./components/profile"));
 const PageNotFound = lazy(() => import("./components/PageNotFound"));
-const General = lazy(() => import("./components/profile/Edit/Index"));
-const Bio = lazy(() => import("./components/profile/Edit/Bio"));
-const Interests = lazy(() => import("./components/profile/Edit/Interests"));
-const AddToGallery = lazy(() =>
-  import("./components/profile/Edit/AddToGallery")
-);
+const General = lazy(() => import("./components/Edit/Index"));
+const Bio = lazy(() => import("./components/Edit/Bio"));
+const Interests = lazy(() => import("./components/Edit/Interests"));
+const AddToGallery = lazy(() => import("./components/Edit/AddToGallery"));
 const PersonalInformation = lazy(() =>
-  import("./components/profile/Edit/PersonalInformation.jsx")
+  import("./components/Edit/PersonalInformation.jsx")
 );
 
 export const AppContext = createContext();
@@ -39,7 +39,7 @@ export const AppContext = createContext();
 function App() {
   const navigate = useNavigate();
   const location = useLocation().pathname;
-  const [sidebar, setSidebar] = useState(false);
+  const [sidebar, setSidebar] = useState(true);
   const [wrapped, setWrapped] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [userData, setUserData] = useState({
@@ -69,6 +69,9 @@ function App() {
       }
     } else {
       setIsLogged(false);
+    }
+    if (window.innerWidth < 1116) {
+      setWrapped(true);
     }
   }, []);
   useEffect(() => {
@@ -148,13 +151,24 @@ function App() {
       localStorage.setItem("userConnect", JSON.stringify(userData));
     }
   };
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (
       location === "/" ||
       location === "/profile/edit/General" ||
-      location === "/profile/edit/personal_information"
+      location === "/profile/edit/personal_information" ||
+      "/posts/feeds"
     ) {
       setSidebar(true);
+    } else {
+      setSidebar(false);
+    }
+    {
+      profilePages.map((item) => {
+        if (location === `/profile/${item.name}`) {
+          setSidebar(true);
+          setWrapped(true);
+        }
+      });
     }
   }, [location]);
   return (
@@ -174,7 +188,9 @@ function App() {
           wrapped
             ? `${sidebar ? "sm:pl-[5rem] pl-[4rem]" : ""} `
             : `${sidebar ? "max-sm:pl-[4rem] pl-[15rem]" : ""}`
-        } ${location === "/" && "bg-zinc-200 lg:pr-[12rem]"} min-h-screen`}
+        } ${location === "/" && "bg-zinc-200 lg:pr-[12rem]"} ${
+          location === "/posts/feeds" && "lg:pr-[12rem]"
+        } min-h-screen`}
       >
         <AppContext.Provider
           value={{
@@ -222,11 +238,12 @@ function App() {
                 path="/profile/edit/add_image_to_gallery/:title/:name"
                 element={<AddToGallery />}
               />
+              <Route path="/posts/feeds" element={<PostsFeeds />} />
             </Routes>
           </Suspense>
         </AppContext.Provider>
       </div>
-      {location === "/" && (
+      {(location === "/" || location === "/posts/feeds") && (
         <Sidebar2 wrapped={wrapped} setWrapped={setWrapped} />
       )}
     </>
