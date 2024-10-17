@@ -19,7 +19,7 @@ import {
 import Sidebar2 from "./components/Sidebar2";
 import Loader from "./components/design/Loader";
 import { profilePages } from "./components/constants.js";
-import PostsFeeds from "./components/PostsFeeds.jsx";
+import PostsFeeds from "./components/Posts.jsx";
 
 const Hero = lazy(() => import("./components/Hero"));
 const Notification = lazy(() => import("./components/Notification"));
@@ -33,6 +33,7 @@ const AddToGallery = lazy(() => import("./components/Edit/AddToGallery"));
 const PersonalInformation = lazy(() =>
   import("./components/Edit/PersonalInformation.jsx")
 );
+const Posts = lazy(() => import("./components/Posts.jsx"));
 
 export const AppContext = createContext();
 
@@ -156,7 +157,7 @@ function App() {
       location === "/" ||
       location === "/profile/edit/General" ||
       location === "/profile/edit/personal_information" ||
-      "/posts/feeds"
+      "/posts/feeds/all"
     ) {
       setSidebar(true);
     } else {
@@ -166,9 +167,13 @@ function App() {
       profilePages.map((item) => {
         if (location === `/profile/${item.name}`) {
           setSidebar(true);
-          setWrapped(true);
         }
       });
+    }
+    if (window.innerWidth < 768) {
+      setWrapped(true);
+    } else {
+      setWrapped(false);
     }
   }, [location]);
   return (
@@ -189,7 +194,7 @@ function App() {
             ? `${sidebar ? "sm:pl-[5rem] pl-[4rem]" : ""} `
             : `${sidebar ? "max-sm:pl-[4rem] pl-[15rem]" : ""}`
         } ${location === "/" && "bg-zinc-200 lg:pr-[12rem]"} ${
-          location === "/posts/feeds" && "lg:pr-[12rem]"
+          location === "/posts/feeds/all" && "lg:pr-[12rem] bg-zinc-100"
         } min-h-screen`}
       >
         <AppContext.Provider
@@ -238,12 +243,12 @@ function App() {
                 path="/profile/edit/add_image_to_gallery/:title/:name"
                 element={<AddToGallery />}
               />
-              <Route path="/posts/feeds" element={<PostsFeeds />} />
+              <Route path="/posts/:id/:comment" element={<Posts />} />
             </Routes>
           </Suspense>
         </AppContext.Provider>
       </div>
-      {(location === "/" || location === "/posts/feeds") && (
+      {(location === "/" || location === "/posts/feeds/all") && (
         <Sidebar2 wrapped={wrapped} setWrapped={setWrapped} />
       )}
     </>

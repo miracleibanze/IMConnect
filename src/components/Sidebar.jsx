@@ -62,6 +62,7 @@ const Sidebar = ({ wrapped, setWrapped, setIsLogged }) => {
                 item.id === 2 && "bg-zinc-50 rounded-md"
               }`}
               key={item.id}
+              onClick={() => navigate(item.link)}
             >
               <img
                 src={item.icon}

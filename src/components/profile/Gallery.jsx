@@ -58,6 +58,7 @@ const Gallery = ({ galleryImages }) => {
         className={`h-[10rem] overflow-hidden rounded-md w-auto bg-cover bg-center`}
       >
         <img
+          loading="lazy"
           src={galleryImages[0]}
           className="w-full h-[10rem] object-cover object-center"
           height="100%"
@@ -68,6 +69,7 @@ const Gallery = ({ galleryImages }) => {
         className={`h-[10rem] overflow-hidden rounded-md w-auto bg-cover bg-center`}
       >
         <img
+          loading="lazy"
           src={galleryImages[1]}
           className="w-full h-[10rem] object-cover object-center"
           height="100%"
@@ -84,6 +86,7 @@ const Gallery = ({ galleryImages }) => {
               key={index}
             >
               <img
+                loading="lazy"
                 src={image}
                 className="w-full h-[10rem] object-cover object-center"
                 height="100%"

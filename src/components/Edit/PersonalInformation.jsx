@@ -1,12 +1,14 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import { arrowSvg, editSvg } from "../../assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../design/Button";
 
 const PersonalInformation = () => {
+  const navigate = useNavigate();
   const { userData } = useContext(AppContext);
   const [imagePreview, setImagePreview] = useState(null);
+  const [notify, setNotify] = useState(false);
 
   const cover = localStorage.getItem("coverImage");
 
@@ -25,8 +27,17 @@ const PersonalInformation = () => {
     userData.email = event.target.value;
   }, []);
 
+  const changeLocation = useCallback((event) => {
+    event.preventDefault();
+    userData.location = event.target.value;
+  }, []);
+
   const save = useCallback(() => {
     localStorage.setItem("userConnect", JSON.stringify(userData));
+    setNotify(true);
+    setTimeout(() => {
+      setNotify(false);
+    }, 5000);
   }, []);
 
   return (
@@ -70,7 +81,7 @@ const PersonalInformation = () => {
           type="text"
           onChange={changeName}
           className="w-full px-4 py-2 outline-none border border-gray-300 "
-          placeholder={userData.names}
+          defaultValue={userData.names}
         />
         <div className="w-full flex justify-end">
           <Button blue onClick={save}>
@@ -84,7 +95,7 @@ const PersonalInformation = () => {
           type="text"
           onChange={changeusername}
           className="w-full px-4 py-2 outline-none border border-gray-300 "
-          placeholder={userData.username}
+          defaultValue={userData.username}
         />
         <div className="w-full flex justify-end">
           <Button blue onClick={save}>
@@ -98,7 +109,7 @@ const PersonalInformation = () => {
           type="text"
           onChange={changeEmail}
           className="w-full px-4 py-2 outline-none border border-gray-300 "
-          placeholder={userData.email}
+          defaultValue={userData.email}
         />
         <div className="w-full flex justify-end">
           <Button blue onClick={save}>
@@ -106,6 +117,25 @@ const PersonalInformation = () => {
           </Button>
         </div>
       </div>
+      <div className="flex flex-col gap-2 py-2 px-3 border border-blue-300/50 rounded-md mb-4">
+        <p className="body-1 font-semibold">Location:</p>
+        <input
+          type="text"
+          onChange={changeLocation}
+          className="w-full px-4 py-2 outline-none border border-gray-300 "
+          defaultValue={userData.location}
+        />
+        <div className="w-full flex justify-end">
+          <Button blue onClick={save}>
+            Save
+          </Button>
+        </div>
+      </div>
+      {notify && (
+        <div className="fixed bottom-4 right-4 px-6 py-2 w-[18rem] animate-bg rounded-full bg-zinc-100">
+          Reload page to view changes
+        </div>
+      )}
     </div>
   );
 };

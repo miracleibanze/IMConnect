@@ -77,4 +77,15 @@
   .flex-between {
     @apply flex-center justify-between;
   }
+  .animate-bg {
+    animation: grow 0.7s ease-in-out infinite alternate;
+  }
+  @keyframes grow {
+    from {
+      box-shadow: none;
+    }
+    to {
+      box-shadow: 0 0 10px #60a5fa;
+    }
+  }
 }

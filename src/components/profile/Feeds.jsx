@@ -14,7 +14,7 @@ import {
   person17,
   person17Small,
 } from "../../assets";
-import { Posts } from "../constants";
+import { posts } from "../constants";
 import BlogCard from "../design/BlogCard";
 import Button from "../design/Button";
 import WhatInYourMind from "../design/WhatInYourMind";
@@ -47,23 +47,24 @@ const Feeds = () => {
           <img
             src={arrowSvg}
             className="w-6 h-6"
-            onClick={() => navigate("/posts/feeds")}
+            onClick={() => navigate("/posts/feeds/all")}
           />
         </button>
       </div>
       <div className="md:col-span-2 col-span-3 flex flex-col gap-3 row-span-4">
         <div className="bg-zinc-200 p-3">
-          <BlogCard blog={Posts[2]} />
+          <BlogCard blog={posts[2]} />
         </div>
 
         <div className="bg-zinc-200 p-3">
-          <BlogCard blog={Posts[3]} />
+          <BlogCard blog={posts[3]} />
         </div>
       </div>
       <div className="p-3 grid md:grid-cols-2 grid-cols-3 md:col-span-1 col-span-3 row-span-3 gap-2 bg-zinc-200">
         <div className="md:col-span-2 col-span-3 body-1 font-semibold flex-between">
           Gallery
           <img
+            loading="lazy"
             src={arrowSvg}
             alt="Enter"
             className="h-4 w-4"
@@ -71,31 +72,37 @@ const Feeds = () => {
           />
         </div>
         <img
+          loading="lazy"
           src={person17}
           className="w-full aspect-square rounded-md object-cover object-center bg-cover bg-center"
           style={{ backgroundImage: `url(${person17Small})` }}
         />
         <img
+          loading="lazy"
           src={person13}
           className="w-full aspect-square rounded-md object-cover object-center bg-cover bg-center"
           style={{ backgroundImage: `url(${person13Small})` }}
         />
         <img
+          loading="lazy"
           src={person15}
           className="w-full aspect-square rounded-md object-cover object-center bg-cover bg-center"
           style={{ backgroundImage: `url(${person15Small})` }}
         />
         <img
+          loading="lazy"
           src={archer}
           className="w-full aspect-square rounded-md object-cover object-center bg-cover bg-center"
           style={{ backgroundImage: `url(${archerSmall})` }}
         />
         <img
+          loading="lazy"
           src={blackBoy}
           className="w-full aspect-square rounded-md object-cover object-center bg-cover bg-center"
           style={{ backgroundImage: `url(${blackBoySmall})` }}
         />
         <img
+          loading="lazy"
           src={boxingMan}
           className="w-full aspect-square rounded-md object-cover object-center bg-cover bg-center"
           style={{ backgroundImage: `url(${boxingManSmall})` }}

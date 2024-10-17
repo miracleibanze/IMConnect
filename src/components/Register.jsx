@@ -134,7 +134,12 @@ const Register = ({ handleAddUser }) => {
                 preview && "hidden"
               }`}
             >
-              <img src={uploadCloud} alt="Upload" className="w-6 h-6" />
+              <img
+                loading="lazy"
+                src={uploadCloud}
+                alt="Upload"
+                className="w-6 h-6"
+              />
               <span>Click to upload</span>
             </div>
             <span
@@ -152,6 +157,7 @@ const Register = ({ handleAddUser }) => {
               className={`w-0 h-0 ${preview && "hidden"}`}
             />
             <img
+              loading="lazy"
               src={image}
               alt="image"
               className={`w-full ${
@@ -160,6 +166,7 @@ const Register = ({ handleAddUser }) => {
             />
             {preview && (
               <img
+                loading="lazy"
                 src={editSvg}
                 alt=""
                 className="absolute bottom-1 right-1 h-10 w-10"

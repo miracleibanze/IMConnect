@@ -49,7 +49,7 @@ const AddToGallery = () => {
           } w-full aspect-[5/3] rounded-md bg-zinc-200 flex-center flex-col place-content-center`}
           onClick={() => setWaitResult(true)}
         >
-          <img src={uploadCloud} className="h-8 w-8" />
+          <img loading="lazy" src={uploadCloud} className="h-8 w-8" />
           <p className="body-2 italic text-zinc-500/50 font-normal">
             Click to Upload
           </p>
@@ -77,6 +77,7 @@ const AddToGallery = () => {
             />
             <div className="absolute inset-0">
               <img
+                loading="lazy"
                 src={imagePreview}
                 className="w-full h-full object-contain object-center"
               />

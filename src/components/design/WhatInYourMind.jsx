@@ -15,6 +15,7 @@ const WhatInYourMind = ({ className }) => {
     >
       <div className="w-full flex items-center gap-2">
         <img
+          loading="lazy"
           src={userImage || userSvg}
           className={`w-8 aspect-square border rounded-md object-cover object-center border-zinc-500 ${
             !userImage && "p-1"
@@ -32,6 +33,7 @@ const WhatInYourMind = ({ className }) => {
           {postIcons.map((item) => (
             <div className="w-4 aspect-square" key={item.id}>
               <img
+                loading="lazy"
                 src={item.icon}
                 alt={item.name}
                 className="w-5 aspect-square object-center object-cover"

@@ -44,6 +44,7 @@ const Profile = () => {
       <div className="w-full flex md:items-center md:h-[4rem] h-auto place-content-between md:flex-row flex-col mb-16">
         <div className="flex items-center h-[4rem] gap-2 px-8">
           <img
+            loading="lazy"
             src={galleryImages.profileImage}
             alt="profile"
             className=" md:h-[8rem] h-[4rem] bg-blue-600 relative -translate-y-[1rem] aspect-square rounded-md object-cover object-center"

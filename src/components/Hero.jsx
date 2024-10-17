@@ -1,13 +1,33 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import { AppContext } from "../App";
 import { sittingRoom, sittingRoomSmall, userSvg } from "../assets";
-import { birthDays, Posts, upcomingEvents } from "./constants";
+import { birthDays, myPost, posts, upcomingEvents } from "./constants";
 import Button from "./design/Button";
 import BlogCard from "./design/BlogCard";
 import WhatInYourMind from "./design/WhatInYourMind";
 
 const Hero = () => {
-  const { userData, wrapped, setWrapped } = useContext(AppContext);
+  const { wrapped, setWrapped } = useContext(AppContext);
+  const [myPosts, setMyPosts] = useState([{}]);
+
+  useLayoutEffect(() => {
+    console.log(myPosts);
+
+    const post1 = JSON.parse(localStorage.getItem("myPost1"));
+    const post2 = JSON.parse(localStorage.getItem("myPost2"));
+    const post3 = JSON.parse(localStorage.getItem("myPost3"));
+    if (post1) {
+      myPosts[0] = post1;
+      console.log(myPosts[0]);
+    } else if (post2) {
+      myPosts[2] = post2;
+      console.log(myPosts[1]);
+    } else if (post3) {
+      myPosts[3] = post3;
+      console.log(myPosts[2]);
+    } else {
+    }
+  }, []);
 
   return (
     <div
@@ -45,7 +65,7 @@ const Hero = () => {
         ))}
       </div>
       <div className="w-full col-span-2 p-2 rounded-md row-span-3 bg-zinc-200">
-        <BlogCard blog={Posts[0]} />
+        <BlogCard blog={myPosts[1] || posts[0]} />
       </div>
       <div
         className={`w-full p-2 rounded-md row-span-3 bg-zinc-200  ${
@@ -78,7 +98,7 @@ const Hero = () => {
         ))}
       </div>
       <div className="w-full col-span-2 p-2 rounded-md row-span-3 bg-zinc-200">
-        <BlogCard blog={Posts[1]} />
+        <BlogCard blog={posts[1]} />
       </div>
       <div
         className={`w-full p-2 rounded-md row-span-5 flex flex-col justify-between gap-4 bg-zinc-200 ${
@@ -90,7 +110,7 @@ const Hero = () => {
           className="imgDiv w-full max-h-[13rem]"
           style={{ backgroundImage: `url(${sittingRoomSmall})` }}
         >
-          <img src={sittingRoom} className="w-full h-full" />
+          <img loading="lazy" src={sittingRoom} className="w-full h-full" />
         </div>
         <p className="caption overflow-hidden leading-4">
           Ownvestment: emphasing about the suitable estate for you, Why We Need
@@ -98,7 +118,7 @@ const Hero = () => {
         </p>
       </div>
       <div className="w-full col-span-2 p-2 rounded-md row-span-3 bg-zinc-200">
-        <BlogCard blog={Posts[4]} />
+        <BlogCard blog={posts[4]} />
       </div>
       <div className="col-span-2 flex place-content-end">
         <Button blue>Discover more</Button>

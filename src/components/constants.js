@@ -99,7 +99,7 @@ export const homeSidebarLinks = [
     id: 1,
     name: "Explore",
     icon: searchSvg,
-    link: "posts/feeds",
+    link: "posts/feeds/all",
   },
   {
     id: 2,
@@ -112,6 +112,7 @@ export const utilitySidebarLinks = [
   {
     id: 0,
     name: "Create Post",
+    link: "/posts/new/myPost",
     icon: plusSquareSvg,
   },
   {
@@ -161,17 +162,12 @@ export const postIcons = [
   },
   {
     id: 1,
-    name: "attachment",
-    icon: paperclipSvg,
-  },
-  {
-    id: 2,
     name: "location",
     icon: mapPinSvg,
   },
   {
-    id: 3,
-    name: "emoji",
+    id: 2,
+    name: "feeling",
     icon: smileSvg,
   },
 ];
@@ -213,7 +209,7 @@ export const upcomingEvents = [
   },
 ];
 
-export const Posts = [
+export const posts = [
   {
     id: 0,
     name: "ROBERT Hanold",
@@ -545,3 +541,17 @@ export const gallery = [
     imgBg: kunguFuManSmall,
   },
 ];
+const userData = JSON.parse(localStorage.getItem("userConnect"));
+export const myPost = {
+  name: userData.names,
+  description: "",
+  images: [{}],
+  person: userData.img,
+  time: "",
+  location: "",
+  likes: 0,
+  comments: 0,
+  shares: 0,
+};
+
+export const postFeeling = ["Happy", "Sad", "Excited", "Anxiety", "Sick"];

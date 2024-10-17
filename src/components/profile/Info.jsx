@@ -48,11 +48,16 @@ const Info = () => {
       </h4>
       <div className="flex-center body-1 font-semibold gap-3">
         <div className="flex flex-col items-center">
-          <img src={profile} className="h-[10rem] w-auto rounded-md bg-cover" />
+          <img
+            loading="lazy"
+            src={profile}
+            className="h-[10rem] w-auto rounded-md bg-cover"
+          />
           Profile Image
         </div>
         <div className="flex flex-col items-center">
           <img
+            loading="lazy"
             src={cover || eyeSlashSvg}
             className="h-[10rem] w-auto rounded-md bg-cover bg-zinc-200"
           />
